@@ -97,6 +97,7 @@ class MangaReaderSpider(scrapy.Spider):
             yield scrapy.Request(chap, self.parse_chapter, cb_kwargs={"manga": manga, "name": name, "order": i})
 
     def save_manga(self, manga):
+        print(f"Saving manga {manga.get('title')}...")
         filename = "".join([c for c in manga.get('title') if c.isalpha() or c.isdigit() or c==' ']).rstrip()
         with open(f'mangas/{filename}.json', 'w+') as file:
             file.write(json.dumps(manga))
@@ -104,9 +105,9 @@ class MangaReaderSpider(scrapy.Spider):
     def parse_chapter(self, response: HtmlResponse, manga, name, order):
         images = response.css('div.lg\:container chapter-page div.border div.relative picture img::attr(data-src)').getall()
 
+        print(f"Scraping {name} of {manga.get('title')}...")
         panels = []
         for i, img in enumerate(images):
-            print(f"Panel {i}: {img}")
             panels.append(img)
         
         chapter = {
