@@ -1,0 +1,5 @@
+mangascraper/__pycache__/
+mangascraper/spiders/__pycache__/
+webserver/main/__pycache__/
+webserver/main/migrations/__pycache__/
+webserver/webserver/__pycache__/
